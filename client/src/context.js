@@ -2,6 +2,25 @@ import React, { Component } from 'react';
 
 const Context = React.createContext();
 
+const reducer = (state, action) => {
+    switch(action.type) {
+        case 'ADD_POST':
+        console.log('adding post', action.payload);
+            return {
+                ...state, posts: [action.payload, ...state.posts]
+            }
+        case 'DELETE_POST':
+        console.log('deleting post', action.payload);
+            return {
+                ...state, posts: state.posts.filter(post => 
+                post.id !== action.payload)
+            }
+        default:
+            return state;
+    }
+};
+
+
 export class Provider extends Component {
     state = {
         posts: [
@@ -20,8 +39,9 @@ export class Provider extends Component {
                 title: "title three",
                 body: "body three"
             }
-        ]
-    }
+        ],
+        dispatch: action => this.setState(state => reducer(state, action))
+    };
 
     render() {
         return (

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-// import { Consumer } from '../content';
+import { Consumer } from '../context';
+import uuid from 'uuid';
 
 class AddPost extends Component {
     state = {
@@ -7,16 +8,19 @@ class AddPost extends Component {
         body: ''
     }
 
-    onSubmit = (e) => {
+    onSubmit = (dispatch, e) => {
         e.preventDefault();
         const { title, body } = this.state;
         const post = {
+            id: uuid(),
             title,
             body
         };
 
-    //   dispatch({ type: 'ADD_POST', payload: post }); //dispatch adding post action
-      this.setState({ title: '', body: '' }); //Reset the input
+        dispatch({ type: 'ADD_POST', payload: post }); //dispatch adding post action
+        this.setState({ title: '', body: '' }); //Reset the input
+
+        this.props.history.push('/');
     };
 
     onChangeInput = (e) => {
@@ -26,15 +30,14 @@ class AddPost extends Component {
     render() {
         const { title, body } = this.state;
         return (
-            // <Consumer>
-            //     {value => {
-            //         const { dispatch } = value;
-                    // return (
+            <Consumer>
+                {value => {
+                    const { dispatch } = value;
+                    return (
                         <div className="card mb-3">
                         <div className="card-header">Add Post</div>
                         <div className="card-body">
-                            {/* <form onSubmit={this.onSubmit.bind(this, dispatch)}> */}
-                            <form onSubmit={this.onSubmit}>
+                            <form onSubmit={this.onSubmit.bind(this, dispatch)}>
                                 <div className="form-group">
                                     <label htmlFor="title">title</label>
                                     <input 
@@ -61,9 +64,9 @@ class AddPost extends Component {
                             </form>
                         </div>
                     </div>
-                    // )
-            //     }}
-            // </Consumer>
+                    )
+                 }}
+            </Consumer>
             )
         }
     };
