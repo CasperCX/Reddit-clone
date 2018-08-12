@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
+import Post from './Post';
+import { Consumer } from '../context';
 
 class Posts extends Component {
-    state = {
-
-    };
 
     render() {
         return (
-            <div>
-                posts here
-            </div>
+            <Consumer>
+                {value => {
+                    const { posts }  = value;
+                    return (
+                    <React.Fragment>
+                        {posts.map(post => 
+                                <Post key={post.id} post={post} />
+                        )}
+                    </React.Fragment>
+                    )
+                }}
+            </Consumer>
         )
     }
 };
