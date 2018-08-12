@@ -1,0 +1,25 @@
+{
+  "name": "reddit-clone",
+  "version": "1.0.0",
+  "description": "A reddit / forum clone on the blockchain",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon server.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CasperCX/Reddit-clone.git"
+  },
+  "author": "Casper Groenenberg <c.groenenberg@hotmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CasperCX/Reddit-clone/issues"
+  },
+  "homepage": "https://github.com/CasperCX/Reddit-clone#readme",
+  "dependencies": {
+    "concurrently": "^3.6.1",
+    "express": "^4.16.3"
+  }
+}
