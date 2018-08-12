@@ -1,2 +1,2 @@
 # Reddit-clone
-A reddit / forum clone on the blockchain
+A reddit clone running on the Ethereum blockchain
