@@ -1,48 +1,44 @@
 // const db = require('../db');
 
 // Connect to Postgres DB
-var pg = require('pg');
-// var connectionString = 'postgres://ouxzkgpl:lAtm9CkJUJaJZQGth7ZgzNJsGiXJi18S@dumbo.db.elephantsql.com:5432/ouxzkgpl';
-
+var { Client } = require('pg');
 var conString = process.env.ELEPHANTSQL_URL || 'postgres://ouxzkgpl:lAtm9CkJUJaJZQGth7ZgzNJsGiXJi18S@dumbo.db.elephantsql.com:5432/ouxzkgpl';
-let client = new pg.Client(conString);
-    client.connect(function(err) {
-    if(err) {
-        return console.error('could not connect to postgres', err);
-        }
-    });
 
-    
+
 module.exports = {
     getPosts : function(req, res){
       
     },
     getPost : async function(req, res){
-            const { id } = req.params;
-            const { rows } = await client.query('SELECT * FROM posts WHERE id = $1', [id])
-            res.send(rows[0])
-    
-        
-            client.end();
-        },
-    
+        const client = new Client(conString);
+            client.connect(function(err) {
+            if(err) {
+                return console.error('could not connect to postgres', err);
+                }
+            });
 
-    postPost : function(req, res){
-        const query = {
-            text: 'INSERT INTO posts(title, body) VALUES($1, $2)',
-            values: [`${req.body.title}`, `${req.body.body}`],
-          }
-          client.query(query.text, query.values)
-            .then(res => {
-                console.log(res.rows[0])
-            }).catch(e => console.error(e.stack))
-           
-        //   console.log("CONNECTION:", connection);
+        const { id } = req.params;
+        const { rows } = await client.query('SELECT * FROM posts WHERE id = $1', [id])
+        res.send(rows[0])
 
-        // connection.query(query)
-        // .then(res => console.log(res.rows[0]))
-        // .catch(e => console.error(e.stack))
-        
+    
+        client.end();
+    },
+
+    postPost : async function(req, res){
+        const client = new Client(conString);
+            client.connect(function(err) {
+            if(err) {
+                return console.error('could not connect to postgres', err);
+                }
+            });
+
+            const { title, body } = req.body;
+            const result = await client.query('INSERT INTO posts(title, body) VALUES($1, $2) RETURNING *', [title, body])
+            // res.send(rows[0])
+            res.send(result)
+
+        client.end();
     }
 }
 
