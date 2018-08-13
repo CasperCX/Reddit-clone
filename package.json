@@ -19,8 +19,11 @@
   },
   "homepage": "https://github.com/CasperCX/Reddit-clone#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "concurrently": "^3.6.1",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
-    "pg": "^7.4.3"
+    "pg": "^7.4.3",
+    "pg-connection-string": "^2.0.0"
   }
 }

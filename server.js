@@ -1,14 +1,18 @@
 const express = require('express');
-const db = require('./db');
-const app = express();
+const bodyParser = require('body-parser')
+const cors = require('cors');
+const routes = require('./routes');
 
-//Connect to Postgres DB
-const connection = new db();
-const client = connection.createClient();
-connection.createPool();
-connection.connect(client);
+const app = express();
+app.use(cors())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
 
 app.set('port', 5000);
+app.use('/', routes);
 
 app.get('/', (req, res) => {
     res.send("ok")
