@@ -6,8 +6,19 @@ var conString = process.env.ELEPHANTSQL_URL || 'postgres://ouxzkgpl:lAtm9CkJUJaJ
 
 
 module.exports = {
-    getPosts : function(req, res){
-      
+    getPosts : async function(req, res){
+        const client = new Client(conString);
+            client.connect(function(err) {
+            if(err) {
+                return console.error('could not connect to postgres', err);
+                }
+            });
+
+        const { rows } = await client.query('SELECT * FROM posts');
+        res.send(rows)
+
+        client.end();
+
     },
     getPost : async function(req, res){
         const client = new Client(conString);
@@ -20,7 +31,6 @@ module.exports = {
         const { id } = req.params;
         const { rows } = await client.query('SELECT * FROM posts WHERE id = $1', [id])
         res.send(rows[0])
-
     
         client.end();
     },
@@ -35,7 +45,6 @@ module.exports = {
 
             const { title, body } = req.body;
             const result = await client.query('INSERT INTO posts(title, body) VALUES($1, $2) RETURNING *', [title, body])
-            // res.send(rows[0])
             res.send(result)
 
         client.end();
