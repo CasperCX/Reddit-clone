@@ -1,2 +1,2 @@
 # Reddit-clone
-A reddit clone running on the Ethereum blockchain
+A reddit clone build with React and ElephantSQL Postgres cloud database
