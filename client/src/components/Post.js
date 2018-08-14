@@ -7,8 +7,7 @@ class Post extends Component {
 
         return (
             <div className="card">
-                {/* <Link to={`/post/${id}`}>{title}</Link> */}
-                <Link to={{ pathname: `/post/${id}`, state: { title, body } }}>My route</Link>
+                <Link to={{ pathname: `/post/${id}`, state: { id, title, body } }}>{title}</Link>
             </div>
         )
     }

@@ -17,15 +17,14 @@ class AddPost extends Component {
         };
 
         try {
-            const res = await axios.post('https://localhost:5000/addpost', post);
+            await axios.post('http://localhost:5000/addpost', post);
             dispatch({ type: 'ADD_POST', payload: post }); //dispatch adding post action
+            this.setState({ title: '', body: '' }); //Reset the input
+            this.props.history.push('/');
         } catch(err) {
             console.log(err);
             return;
         }
-       
-        this.setState({ title: '', body: '' }); //Reset the input
-        this.props.history.push('/');
     };
 
     onChangeInput = (e) => {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 const Context = React.createContext();
 
@@ -20,28 +21,17 @@ const reducer = (state, action) => {
     }
 };
 
-
+//TODO fetch all data from cloud
 export class Provider extends Component {
     state = {
-        posts: [
-            {
-                id: 1,
-                title: "title one",
-                body: "body one"
-            }, 
-            {
-                id: 2,
-                title: "title two",
-                body: "body two"
-            },
-            {
-                id: 3,
-                title: "title three",
-                body: "body three"
-            }
-        ],
+        posts: [],
         dispatch: action => this.setState(state => reducer(state, action))
     };
+
+    async componentDidMount() {
+        const res = await axios.get('http://localhost:5000/posts');
+        this.setState({ posts: [...res.data]});
+    }
 
     render() {
         return (
