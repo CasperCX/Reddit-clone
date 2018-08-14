@@ -10,7 +10,7 @@ module.exports = {
         const client = new Client(conString);
             client.connect(function(err) {
             if(err) {
-                return console.error('could not connect to postgres', err);
+                return res.send("could not connect to database");
                 }
             });
 
@@ -24,7 +24,7 @@ module.exports = {
         const client = new Client(conString);
             client.connect(function(err) {
             if(err) {
-                return console.error('could not connect to postgres', err);
+                return res.send("could not connect to database");
                 }
             });
 
@@ -39,7 +39,7 @@ module.exports = {
         const client = new Client(conString);
             client.connect(function(err) {
             if(err) {
-                return console.error('could not connect to postgres', err);
+                return res.send("could not connect to database");
                 }
             });
 

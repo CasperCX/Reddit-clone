@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Consumer } from '../context';
-import uuid from 'uuid';
+import axios from 'axios';
 
 class AddPost extends Component {
     state = {
@@ -8,18 +8,23 @@ class AddPost extends Component {
         body: ''
     }
 
-    onSubmit = (dispatch, e) => {
+    onSubmit = async (dispatch, e) => {
         e.preventDefault();
         const { title, body } = this.state;
         const post = {
-            id: uuid(),
             title,
             body
         };
 
-        dispatch({ type: 'ADD_POST', payload: post }); //dispatch adding post action
+        try {
+            const res = await axios.post('https://localhost:5000/addpost', post);
+            dispatch({ type: 'ADD_POST', payload: post }); //dispatch adding post action
+        } catch(err) {
+            console.log(err);
+            return;
+        }
+       
         this.setState({ title: '', body: '' }); //Reset the input
-
         this.props.history.push('/');
     };
 
