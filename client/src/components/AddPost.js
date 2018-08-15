@@ -8,16 +8,19 @@ class AddPost extends Component {
         body: ''
     }
 
+    //TODO insert the id
     onSubmit = async (dispatch, e) => {
         e.preventDefault();
         const { title, body } = this.state;
+        //TODO Get authenticated author id
         const post = {
-            title,
-            body
+            authorid: 1,
+            title: title,
+            body: body
         };
 
         try {
-            await axios.post('http://localhost:5000/addpost', post);
+            await axios.post('/addpost', post);
             dispatch({ type: 'ADD_POST', payload: post }); //dispatch adding post action
             this.setState({ title: '', body: '' }); //Reset the input
             this.props.history.push('/');

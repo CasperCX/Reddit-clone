@@ -16,20 +16,30 @@ const reducer = (state, action) => {
                 ...state, posts: state.posts.filter(post => 
                 post.id !== action.payload)
             }
+        case 'LOGIN_USER':
+        console.log('loggin in user', action.payload);
+            return {
+                ...state, user: action.payload.username
+            }
+        case 'REGISTER_USER':
+        console.log('registering user', action.payload);
+            return {
+                ...state, user: action.payload.username
+            }
         default:
             return state;
     }
 };
 
-//TODO fetch all data from cloud
 export class Provider extends Component {
     state = {
+        user: null,
         posts: [],
         dispatch: action => this.setState(state => reducer(state, action))
     };
 
     async componentDidMount() {
-        const res = await axios.get('http://localhost:5000/posts');
+        const res = await axios.get('/posts');
         this.setState({ posts: [...res.data]});
     }
 

@@ -14,7 +14,7 @@ class Posts extends Component {
                     <React.Fragment>
                         <Link to="/addpost">add post</Link>
                         {posts.map(post => 
-                                    <Post key={post.id} post={post} />
+                                    <Post key={post.post_id} post={post} />
                         )}
                     </React.Fragment>
                     )

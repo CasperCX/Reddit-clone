@@ -11,7 +11,7 @@ class PostView extends Component {
         //Fetch  the comments for this post
         const { id } = this.props.location.state;
         try {
-            const post = await axios.get(`http://localhost:5000/post/${id}`);
+            const post = await axios.get(`/post/${id}`);
             this.setState({ id_test: post.data.id});
         } catch (err) {
             console.log(err);
@@ -31,14 +31,4 @@ class PostView extends Component {
 
 export default PostView;
 
-// export default (props) => {
-//     const { title, body } = props.location.state;
-//     return (
-//         <div>
-//             <h1>{title}</h1> 
-//              <p>{body}</p>
-//         </div>
-//     )
 
-//     //TODO make a class and fetch the comments on enter
-// };

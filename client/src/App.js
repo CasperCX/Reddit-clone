@@ -7,6 +7,8 @@ import { Provider }  from './context';
 import Posts from './components/Posts';
 import PostView from './components/PostView';
 import AddPost from './components/AddPost';
+import Register from './components/Register';
+import Login from './components/Login';
 import NotFound from './components/NotFound';
 
 class App extends Component {
@@ -19,6 +21,8 @@ class App extends Component {
             <Route exact path="/" component={Posts} />
             <Route exact path="/post/:id" component={PostView} />
             <Route exact path="/addpost" component={AddPost} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
             <Route component={NotFound} />
           </Switch>
           </div>

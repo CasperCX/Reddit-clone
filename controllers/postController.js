@@ -66,3 +66,106 @@ module.exports = {
 // INSERT INTO posts(title, body)
 // VALUES
 //  ('title1', 'bodyhere');
+
+
+
+
+// CREATE TABLE cities (
+//     city     varchar(80) primary key,
+//     location point
+// );
+
+// CREATE TABLE weather (
+//     city      varchar(80) references cities(city),
+//     temp_lo   int,
+//     temp_hi   int,
+//     prcp      real,
+//     date      date
+// );
+
+// CREATE TABLE posts(
+//     id serial PRIMARY KEY references comments(id),
+//     title VARCHAR (50) NOT NULL,
+//     body VARCHAR (50) NOT NULL
+//    );
+
+
+
+
+
+// DROP TABLE posts CASCADE
+// DROP TABLE post_id;
+// DROP TABLE comments;
+// DROP TABLE posts;
+// DROP TABLE author;
+
+// //postgres
+// CREATE TABLE author (
+//     authorid serial PRIMARY KEY,
+//     username VARCHAR (30) UNIQUE,
+//     karma int DEFAULT 1
+// );
+
+// CREATE TABLE post_id (post_index serial PRIMARY KEY);
+// CREATE TABLE posts (post_index serial PRIMARY KEY REFERENCES post_id);
+
+
+// CREATE TABLE comments (
+//     comment_id int PRIMARY KEY,
+//     post_id serial NOT NULL REFERENCES posts,
+//     authorid int NOT NULL REFERENCES author,
+//     comment VARCHAR (300) NOT NULL,
+//     votes int DEFAULT 1
+// );
+
+
+// ALTER TABLE posts ADD COLUMN parent_post int REFERENCES posts;
+// ALTER TABLE posts ADD COLUMN authorid int NOT NULL REFERENCES author;
+// ALTER TABLE posts ADD COLUMN title VARCHAR (30) NOT NULL;
+// ALTER TABLE posts ADD COLUMN body VARCHAR (500) NOT NULL;
+// ALTER TABLE posts ADD COLUMN votes int;
+// ALTER TABLE posts ADD COLUMN comment_id int REFERENCES comments(comment_id);
+
+
+
+// INSERT INTO posts(authorid, title, body)
+// VALUES
+//  (1, 'title1', 'bodyhere');
+
+
+
+
+
+
+
+
+// CREATE TABLE posts (
+//     post_id serial PRIMARY KEY,
+//     votes int DEFAULT 1,
+//     parent_post int REFERENCES posts,
+//     authorid int NOT NULL REFERENCES author,
+//     title VARCHAR (30) NOT NULL,
+//     body VARCHAR (500) NOT NULL,
+//     comment_id int[] REFERENCES comments
+// );
+
+
+// CREATE TABLE methods
+// (
+//     method_id serial PRIMARY KEY,
+//     method_name varchar(100)
+// );
+
+// //I now want to create a table with the following columns:
+
+// CREATE TABLE experiments 
+// (
+//     method integer[] REFERENCES methods(method_id),
+//     trials integer
+// );
+
+
+// CREATE TABLE experiments (
+//     method_id integer REFERENCES methods (method_id),
+//     method_class_id integer REFERENCES method_class (method_class_id)
+// );
