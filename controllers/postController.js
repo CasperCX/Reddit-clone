@@ -97,12 +97,13 @@ module.exports = {
 // DROP TABLE post_id;
 // DROP TABLE comments;
 // DROP TABLE posts;
-// DROP TABLE author;
+// DROP TABLE users;
 
 // //postgres
-// CREATE TABLE author (
-//     authorid serial PRIMARY KEY,
+// CREATE TABLE users (
+//     userid serial PRIMARY KEY,
 //     username VARCHAR (30) UNIQUE,
+//     password VARCHAR (30) NOT NULL,
 //     karma int DEFAULT 1
 // );
 
@@ -113,14 +114,14 @@ module.exports = {
 // CREATE TABLE comments (
 //     comment_id int PRIMARY KEY,
 //     post_id serial NOT NULL REFERENCES posts,
-//     authorid int NOT NULL REFERENCES author,
+//     userid int NOT NULL REFERENCES users,
 //     comment VARCHAR (300) NOT NULL,
 //     votes int DEFAULT 1
 // );
 
 
 // ALTER TABLE posts ADD COLUMN parent_post int REFERENCES posts;
-// ALTER TABLE posts ADD COLUMN authorid int NOT NULL REFERENCES author;
+// ALTER TABLE posts ADD COLUMN userid int NOT NULL REFERENCES users;
 // ALTER TABLE posts ADD COLUMN title VARCHAR (30) NOT NULL;
 // ALTER TABLE posts ADD COLUMN body VARCHAR (500) NOT NULL;
 // ALTER TABLE posts ADD COLUMN votes int;
@@ -128,7 +129,7 @@ module.exports = {
 
 
 
-// INSERT INTO posts(authorid, title, body)
+// INSERT INTO posts(userid, title, body)
 // VALUES
 //  (1, 'title1', 'bodyhere');
 

@@ -7,7 +7,7 @@ const router = express.Router();
 
 //Auth routes
 router.route('/login').post(authCtrl.login);
-router.route('/getToken').post(authCtrl.getToken);
+router.route('/register').post(authCtrl.register);
 router.route('/securepage').get(verrifyToken ,authCtrl.securePage);
 
 //Post routes

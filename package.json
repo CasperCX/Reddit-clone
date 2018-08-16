@@ -20,6 +20,7 @@
   "homepage": "https://github.com/CasperCX/Reddit-clone#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
     "concurrently": "^3.6.1",
     "cors": "^2.8.4",

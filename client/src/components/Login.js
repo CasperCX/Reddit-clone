@@ -13,7 +13,7 @@ class Login extends Component {
     onSubmit = async (dispatch, e) => {
         e.preventDefault();
         try {
-            const token = await axios.post('/gettoken', this.state);
+            const token = await axios.post('/login', this.state);
             localStorage.setItem('jwt-token', token.data);
             console.log("created token for: ", this.state)
             console.log("token: ", token.data);
