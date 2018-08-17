@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 class Post extends Component {
 
     onVote(type) {
-        // TODO BACKEND CALL TO INCREASE OR DECREASE VOTE AND SUBMIT QUERY
+        // TODO persist data to BACKEND ,INCREASE OR DECREASE VOTE AND SUBMIT QUERY
         const { id, title, body, sub, votes } = this.props.post;
+
+        //TODO Payload should only include votes to avoid manipulation
         const post = {
             id,
             user_id: 1,
@@ -45,7 +47,7 @@ class Post extends Component {
                     <span className="glyphicon glyphicon-arrow-down"></span> Down
                 </button>
                 <div style={{ float: 'right'}}>
-                    <Link to={{ pathname: `/post/${post_id}`, state: { post_id, title, body } }}>{title}</Link>
+                    <Link to={{ pathname: `/post/${post_id}`, state: { post_id, title, body, votes } }}>{title}</Link>
                 </div>
             </div>
         )

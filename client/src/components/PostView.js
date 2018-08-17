@@ -19,9 +19,10 @@ class PostView extends Component {
     };
 
     render() {
-        const { title, body } = this.props.location.state;
+        const { title, body, votes } = this.props.location.state;
         return (
             <div>
+                {votes}
                 <h1>title: {title}</h1> 
                 <p>{body}</p>
             </div>

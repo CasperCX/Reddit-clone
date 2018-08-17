@@ -28,8 +28,9 @@
 // CREATE TABLE posts(
 //     id serial PRIMARY KEY,   //REFERENCES comments(post_id),
 //     user_id INTEGER NOT NULL REFERENCES users(user_id),
-//     posting_date DATE NOT NULL DEFAULT CURRENT_DATE,
+//     posting_date TIMESTAMPTZ DEFAULT now(),
 //     sub VARCHAR (50) NOT NULL,
+//     votes INTEGER DEFAULT 1,
 //     title VARCHAR (50) NOT NULL,
 //     body VARCHAR (50) NOT NULL
 //    );
