@@ -21,6 +21,10 @@ const reducer = (state, action) => {
                 ...state, posts: state.posts.filter(post => 
                 post.id !== action.payload)
             }
+        case 'VOTE_POST':
+            return {
+                posts: [state.posts[action.payload.id] = action.payload]
+            }
         case 'LOGIN_USER':
         console.log('loggin in user', action.payload);
             return {
