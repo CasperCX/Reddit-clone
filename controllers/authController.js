@@ -5,7 +5,7 @@ const conString = process.env.ELEPHANTSQL_URL || 'postgres://ouxzkgpl:lAtm9CkJUJ
 
 module.exports = {
 
-    login: function (req, res) {
+    login: async function (req, res) {
         const client = new Client(conString);
         client.connect(function(err) {
         if(err) {
@@ -17,16 +17,29 @@ module.exports = {
             return res.status(401).send("no fields supplied");
         };
 
-        //TODO - check the database if username and (hashed password match)
-        //TODO make async with await syntax
-        const user = {
+        let user = {
             username: req.body.username,
             password: req.body.password
         };
 
-        jwt.sign({ user }, process.env.SECRET_OR_KEY, (err, token) => {
-            res.json({ token });
-        });
+        try {
+            const { rows } = await client.query('SELECT * FROM users WHERE username = $1', [user.username]);
+            if (rows.length > 0) {
+                const passwordIsValid = bcrypt.compareSync(user.password, rows[0].password);
+                    if (!passwordIsValid) { 
+                        return res.status(401).send({ auth: false, token: null });
+                    } else {
+                        jwt.sign({ user }, process.env.SECRET_OR_KEY, (err, token) => {
+                            res.json({ token });
+                        });                    
+                    };
+            } else {
+                return res.status(404).send({message: "username does not exist"});
+            };
+
+        } catch(err) {
+            console.log(err);
+        }
 
         client.end();
     },
@@ -53,11 +66,9 @@ module.exports = {
             const { rows } = await client.query('SELECT * FROM users WHERE username = $1', [user.username]);
             console.log("looked for username got rows: ", rows);
             if (rows.length > 0) {
-                console.log("user already exists")
                 return res.status(403).send({message: "username already exists"});
             } else {
                 const { rows } = await client.query('INSERT INTO users(username, password) VALUES($1, $2) RETURNING username', [user.username, user.password]);
-                console.log("created user", rows);
                 return res.status(200).send({message: "registered user", user: rows});
             };
          

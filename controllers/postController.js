@@ -103,7 +103,7 @@ module.exports = {
 // CREATE TABLE users (
 //     userid serial PRIMARY KEY,
 //     username VARCHAR (30) UNIQUE,
-//     password VARCHAR (30) NOT NULL,
+//     password TEXT NOT NULL,
 //     karma int DEFAULT 1
 // );
 
@@ -133,6 +133,9 @@ module.exports = {
 // VALUES
 //  (1, 'title1', 'bodyhere');
 
+// INSERT INTO users(username, password)
+// VALUES
+//  ('userone', 'password');
 
 
 
