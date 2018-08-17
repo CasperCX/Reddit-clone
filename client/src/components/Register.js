@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Consumer } from '../context';
 import TextInputGroup from './layout/TextInputGroup';
@@ -68,6 +69,7 @@ class Register extends Component {
                                 className=" btn btn-light btn-block"
                             />
                             </form>
+                            <Link to='/login'>Login?</Link>
                         </React.Fragment>
                     )
                 }}

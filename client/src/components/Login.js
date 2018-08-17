@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Consumer } from '../context';
 import TextInputGroup from './layout/TextInputGroup';
@@ -15,7 +16,7 @@ class Login extends Component {
         e.preventDefault();
             try {
                 const res = await axios.post('/login', this.state);
-                localStorage.setItem('jwt-token', res.data.token);
+                localStorage.setItem('token', res.data.token);
                 
                 dispatch({type: "LOGIN_USER", payload: this.state });
                 this.setState({ username: '', password: '' });  //Clear state
@@ -25,9 +26,6 @@ class Login extends Component {
                 this.setState({message: err.response.data.message});
                 console.log(err.response.data.message);
             }
-           
-          
-       
     };
 
     onChange = (e) => {
@@ -67,6 +65,7 @@ class Login extends Component {
                             />
                             </form>
                             <p style={{color:'red'}}>{this.state.message}</p>
+                            <Link to='/register'>Register account</Link>
                         </React.Fragment>
                     )
                 }}
