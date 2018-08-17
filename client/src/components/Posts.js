@@ -19,13 +19,12 @@ export class Posts extends Component {
     };
 
     render() {
-    
         const { posts } = this.props.context;
-        console.log("posts from consumer", posts)
+        const { sub } = this.props.match.params;
         return (
             <React.Fragment>
                 { this.props.match.params.sub  ? <h1>r/{this.props.match.params.sub}</h1>  : <h1>/all</h1> }
-                <Link to="/addpost">add post</Link>
+                <Link to={`/r/${sub}/addpost`}>add post</Link>
                 {posts.map(post => 
                             <Post key={post.id} post={post} />
                 )}

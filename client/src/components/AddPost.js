@@ -25,7 +25,7 @@ class AddPost extends Component {
             await axios.post('/addpost', post);
             dispatch({ type: 'ADD_POST', payload: post }); //dispatch adding post action
             this.setState({ title: '', body: '' }); //Reset the input
-            this.props.history.push('/');
+            this.props.history.push(`/r/${this.props.match.params.sub}`);
         } catch(err) {
             console.log(err);
             return;
