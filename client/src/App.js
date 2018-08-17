@@ -22,8 +22,9 @@ class App extends Component {
           <Header />
           <Switch>
             <Route exact path="/" component={Posts} />
+            <Route exact path="/r/:sub" component={Posts} />
             <Route exact path="/post/:id" component={PostView} />
-            <Route exact path="/addpost" component={AddPost} />
+            <Route exact path="/r/:sub/addpost" component={AddPost} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/account" component={Account} />

@@ -8,15 +8,17 @@ class AddPost extends Component {
         body: ''
     }
 
-    //TODO insert the id
+
     onSubmit = async (dispatch, e) => {
         e.preventDefault();
         const { title, body } = this.state;
         //TODO Get authenticated author id
+       
         const post = {
-            authorid: 1,
+            user_id: 1,
             title: title,
-            body: body
+            body: body,
+            sub: this.props.match.params.sub
         };
 
         try {

@@ -5,6 +5,11 @@ const Context = React.createContext();
 
 const reducer = (state, action) => {
     switch(action.type) {
+        case 'GET_POSTS':
+        console.log("getting posts for sub", action.payload);
+            return {
+                ...state, posts: [...action.payload]
+            }
         case 'ADD_POST':
         console.log('adding post', action.payload);
             return {
@@ -37,11 +42,6 @@ export class Provider extends Component {
         posts: [],
         dispatch: action => this.setState(state => reducer(state, action))
     };
-
-    async componentDidMount() {
-        const res = await axios.get('/posts');
-        this.setState({ posts: [...res.data]});
-    }
 
     render() {
         return (

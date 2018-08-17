@@ -13,8 +13,9 @@ module.exports = {
                 return res.send("could not connect to database");
                 }
             });
-
-        const { rows } = await client.query('SELECT * FROM posts');
+        
+        const { sub } = req.params;
+        const { rows } = await client.query('SELECT * FROM posts WHERE sub = $1', [sub]);
         res.send(rows)
 
         client.end();
@@ -43,8 +44,8 @@ module.exports = {
                 }
             });
 
-            const { title, body } = req.body;
-            const result = await client.query('INSERT INTO posts(title, body) VALUES($1, $2) RETURNING *', [title, body])
+            const { user_id, title, body, sub } = req.body;
+            const result = await client.query('INSERT INTO posts(user_id, sub, title, body) VALUES($1, $2, $3, $4) RETURNING *', [user_id, sub, title, body])
             res.send(result)
 
         client.end();
