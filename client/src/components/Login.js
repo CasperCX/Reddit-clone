@@ -6,26 +6,28 @@ import TextInputGroup from './layout/TextInputGroup';
 class Login extends Component {
     state = {
         username: '',
-        password: ''
+        password: '',
+        message: null
 
     };
 
     onSubmit = async (dispatch, e) => {
         e.preventDefault();
-        try {
-            const token = await axios.post('/login', this.state);
-            localStorage.setItem('jwt-token', token.data);
-            console.log("created token for: ", this.state)
-            console.log("token: ", token.data);
-
-            dispatch({type: "LOGIN_USER", payload: this.state });
-            this.setState({ username: '', password: '' });  //Clear state
-
-            //TODO if auth fails return to login else return to posts
-            this.props.history.push('/');
-        } catch (err) {
-            console.log(err);
-        }
+            try {
+                const res = await axios.post('/login', this.state);
+                localStorage.setItem('jwt-token', res.data.token);
+                
+                dispatch({type: "LOGIN_USER", payload: this.state });
+                this.setState({ username: '', password: '' });  //Clear state
+                this.props.history.push('/');
+            
+            } catch(err) {
+                this.setState({message: err.response.data.message});
+                console.log(err.response.data.message);
+            }
+           
+          
+       
     };
 
     onChange = (e) => {
@@ -64,6 +66,7 @@ class Login extends Component {
                                 className=" btn btn-light btn-block"
                             />
                             </form>
+                            <p style={{color:'red'}}>{this.state.message}</p>
                         </React.Fragment>
                     )
                 }}

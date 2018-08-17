@@ -27,14 +27,14 @@ module.exports = {
             if (rows.length > 0) {
                 const passwordIsValid = bcrypt.compareSync(user.password, rows[0].password);
                     if (!passwordIsValid) { 
-                        return res.status(401).send({ auth: false, token: null });
+                        return res.status(401).send({ auth: false, token: null, message: "invalid password"});
                     } else {
                         jwt.sign({ user }, process.env.SECRET_OR_KEY, (err, token) => {
-                            res.json({ token });
+                            res.status(200).send({ auth: true, token: token,  message: "successfully logged in"});
                         });                    
                     };
             } else {
-                return res.status(404).send({message: "username does not exist"});
+                return res.status(404).send({ auth: false, token: null, message: "username does not exist"});
             };
 
         } catch(err) {

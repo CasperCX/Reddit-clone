@@ -16,7 +16,7 @@ class Register extends Component {
             const res = await axios.post('/register', this.state);
             console.log("client response", res)
             //TODO check if res is a new user or a error
-            if(res.status == 200) {
+            if(res.status === 200) {
                 dispatch({type: "REGISTER_USER", payload: this.state });
                  //Clear state
                 this.setState({ username: '', password: '' }); 
