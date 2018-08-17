@@ -9,16 +9,27 @@ class Header extends Component {
         }
     }
 
-    logout(e) {
-        console.log("clicked logout");
+    logout() {
         console.log("current token:", localStorage.token)
-        localStorage.token = null;
+        localStorage.token = '';
         console.log("token after click:", localStorage.token)
+        this.forceUpdate();
+   
     };
+
+    showStuff() {
+        if (localStorage.token !== '') {
+            return <div><Link to="/account">MyAccount</Link><button onClick={() => this.logout()}>logout</button></div>
+        } else {
+            return <Link to="/login">Login</Link>
+        }
+    }
 
     render() {
         return (
             <React.Fragment>
+                { console.log("current jwt: ", localStorage.token) }
+                { console.log("jwt length: ", localStorage.token.length) }
              <nav className="navbar navbar-expand-sm navbar-dark bg-danger mb-3 py-0">
                 <div className="container-fluid">
                     <div className="navbar-header">
@@ -27,16 +38,12 @@ class Header extends Component {
                         </div>
                     </div>
                     <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                    <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            { this.state.token !== null ? <Link to="/account">MyAccount</Link> : <Link to="/login">Login</Link>}
-                        </li>
-                        <li className="nav-item">
-                            { this.state.token !== null ? <button onClick={() => this.logout()}>log out</button> : <Link to="/register">Register</Link>}
-                        </li>
-                    </ul>
+                    
+                    {/* <ul className="navbar-nav ml-auto"> */}
+                        {this.showStuff()}
+                    {/* </ul> */}
                     </div>
-                    <button className="btn btn-danger navbar-btn">Button</button>
+
                 </div>
                 </nav> 
             </React.Fragment>
