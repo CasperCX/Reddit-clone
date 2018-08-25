@@ -54,18 +54,21 @@ class Post extends Component {
     };
 
     render() {
-        const { post_id, votes, title, body } = this.props.post;
+        const { post_id, votes, title, body, file } = this.props.post;
         return (
-            <div className="card">
-                <div className="card" style={{ float: 'left'}}><strong>{votes}</strong></div>
-                <button type="button" className="btn btn-default btn-sm" onClick={() => this.onVote('UP')}>
-                    <span className="glyphicon glyphicon-arrow-up"></span> Up
-                </button>
-                <button type="button" className="btn btn-default btn-sm" onClick={() => this.onVote('DOWN')}>
-                    <span className="glyphicon glyphicon-arrow-down"></span> Down
-                </button>
-                <div style={{ float: 'right'}}>
-                    <Link to={{ pathname: `/post/${post_id}`, state: { post_id, title, body, votes } }}>{title}</Link>
+            <div>
+                <img src={require(`${file}`)}  style={{  border: '1px solid #ddd', borderRadius: '4px', padding: '5px', width: '150px' }} />
+                <div className="card">
+                    <div className="card" style={{ float: 'left'}}><strong>{votes}</strong></div>
+                    <button type="button" className="btn btn-default btn-sm" onClick={() => this.onVote('UP')}>
+                        <span className="glyphicon glyphicon-arrow-up"></span> Up
+                    </button>
+                    <button type="button" className="btn btn-default btn-sm" onClick={() => this.onVote('DOWN')}>
+                        <span className="glyphicon glyphicon-arrow-down"></span> Down
+                    </button>
+                    <div style={{ float: 'right'}}>
+                        <Link to={{ pathname: `/post/${post_id}`, state: { post_id, title, body, votes } }}>{title}</Link>
+                    </div>
                 </div>
             </div>
         )
