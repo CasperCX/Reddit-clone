@@ -15,11 +15,14 @@ class AddPost extends Component {
     };
 
     onFileUpload = async (file) => {
-       
-        if (this.state.fileSelected !== null) {
+       console.log("trying to send", file)
+        if (this.state.selectedFile !== null) {
             try {
-                const filePath = await axios.post('/uploadimage', file);
-                return filePath;
+                const formData = new FormData();
+                formData.append("image", file);
+                const uploadedFile = await axios.post('/uploadimage', formData);
+                console.log("got back", uploadedFile)
+                return uploadedFile.data.filePath;
             } catch(err) {
                 console.log("erorr catched", err)
                 this.setState({message: err.response.data.message});
@@ -36,7 +39,6 @@ class AddPost extends Component {
 
         //Upload file
         const filePath = await this.onFileUpload(selectedFile);
-        console.log("got filepath", filePath)
         const post = {
             user_id: 1,
             title: title,
@@ -70,7 +72,7 @@ class AddPost extends Component {
                         <div className="card mb-3">
                         <div className="card-header">Add Post</div>
                         <div className="card-body">
-                            <form onSubmit={this.onSubmit.bind(this, dispatch)} method="POST" encType="multipart/form-data">
+                            <form onSubmit={this.onSubmit.bind(this, dispatch)} encType="multipart/form-data">
                                 <div className="form-group">
                                     <label htmlFor="title">title</label>
                                     <input 

@@ -3,7 +3,7 @@
 
 
 // SELECT * FROM posts;
-// DROP TABLE posts;
+// DROP TABLE posts CASCADE;
 
 // INSERT INTO posts(title, body)
 // VALUES
@@ -32,7 +32,8 @@
 //     sub VARCHAR (50) NOT NULL,
 //     votes INTEGER DEFAULT 1,
 //     title VARCHAR (50) NOT NULL,
-//     body VARCHAR (50) NOT NULL
+//     body VARCHAR (50) NOT NULL,
+//     file VARCHAR DEFAULT NULL
 //    );
 
 

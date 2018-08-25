@@ -44,8 +44,8 @@ module.exports = {
                 }
             });
 
-            const { user_id, title, body, sub } = req.body;
-            const result = await client.query('INSERT INTO posts(user_id, sub, title, body) VALUES($1, $2, $3, $4) RETURNING *', [user_id, sub, title, body])
+            const { user_id, title, body, sub, file } = req.body;
+            const result = await client.query('INSERT INTO posts(user_id, sub, title, body, file) VALUES($1, $2, $3, $4, $5) RETURNING *', [user_id, sub, title, body, file])
             res.send(result)
             
         client.end();
@@ -78,13 +78,18 @@ module.exports = {
         }
         });
 
-     
-        // console.log('file recieved:', req.body.file);
+        if (!req.file) {
+            console.log("no file")
+            return res.status(404).send({
+                message: "no file provided"
+            })
+        }
+
         console.log('file recieved: ', req.file)
-        res.json({
-            message: "uploaded img"
+        res.status(200).send({
+            message: "success",
+            filePath: req.file.path
         })
-        //TODO: UPLOAD IMAGE USING MULTER
     }
 }
 
