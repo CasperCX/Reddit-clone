@@ -29,7 +29,7 @@ class Header extends Component {
         return (
             <React.Fragment>
                 { console.log("current jwt: ", localStorage.token) }
-                { console.log("jwt length: ", localStorage.token.length) }
+       
                 <nav className="navbar navbar-expand-sm navbar-dark bg-danger mb-3 py-0">
                     <div className="container-fluid">
                         <div className="navbar-header">

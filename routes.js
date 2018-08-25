@@ -1,7 +1,35 @@
 const express = require('express');
+
+
 const authCtrl = require('./controllers/authController');
 const postCtrl = require('./controllers/postController');
 const router = express.Router();
+
+
+//MULTER
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null,  __dirname.replace('routes', '') + '/uploads')
+    },
+    filename: function(req, file, cb) {
+        cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+};
+
+const uploadImage = multer({storage: storage, limits: {
+        fileSize: 2048 * 2048 
+        },
+        fileFilter: fileFilter
+    })
 
 
 
@@ -14,11 +42,13 @@ router.route('/securepage').get(verrifyToken ,authCtrl.securePage);
 router.route('/posts/:sub').get(postCtrl.getPosts);
 router.route('/post/:id').get(postCtrl.getPost);
 router.route('/addpost').post(postCtrl.postPost);
+router.route('/uploadimage').post(uploadImage.single('image'), postCtrl.uploadImage);
+router.route('/votepost').put(verrifyToken, postCtrl.votePost);
 
 module.exports = router;
 
 
-//middlewares
+//Auth middleware
 function verrifyToken(req, res, next) {
     const bearerHeader = req.headers['authorization'];
     if (typeof bearerHeader !== 'undefined') {

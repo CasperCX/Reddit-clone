@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Post from './Post';
 import { Consumer } from '../context';
+import  Toggle from './Toggle';
 
 export class Posts extends Component {
 
@@ -23,6 +24,14 @@ export class Posts extends Component {
         const { sub } = this.props.match.params;
         return (
             <React.Fragment>
+                <Toggle> 
+                {({ on, toggle }) => (
+                    <div>
+                       { on && <h1>Show me</h1> }
+                        <button onClick={toggle}>Show hide</button>
+                    </div>
+                )}
+                </Toggle>
                 { this.props.match.params.sub  ? <h1>r/{this.props.match.params.sub}</h1>  : <h1>/all</h1> }
                 <Link to={`/r/${sub}/addpost`}>add post</Link>
                 {posts.map(post => 

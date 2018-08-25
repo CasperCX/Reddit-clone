@@ -5,19 +5,43 @@ import axios from 'axios';
 class AddPost extends Component {
     state = {
         title: '',
-        body: ''
+        body: '',
+        selectedFile: null,
+        message: null
     }
 
+    fileSelected = (e) => {
+        this.setState({ selectedFile: e.target.files[0] });
+    };
+
+    onFileUpload = async (file) => {
+       
+        if (this.state.fileSelected !== null) {
+            try {
+                const filePath = await axios.post('/uploadimage', file);
+                return filePath;
+            } catch(err) {
+                console.log("erorr catched", err)
+                this.setState({message: err.response.data.message});
+            }
+        } else {
+            return null;
+        }
+    };
 
     onSubmit = async (dispatch, e) => {
         e.preventDefault();
-        const { title, body } = this.state;
+        const { title, body, selectedFile } = this.state;
         //TODO Get authenticated author id
-       
+
+        //Upload file
+        const filePath = await this.onFileUpload(selectedFile);
+        console.log("got filepath", filePath)
         const post = {
             user_id: 1,
             title: title,
             body: body,
+            file: filePath,
             sub: this.props.match.params.sub
         };
 
@@ -46,7 +70,7 @@ class AddPost extends Component {
                         <div className="card mb-3">
                         <div className="card-header">Add Post</div>
                         <div className="card-body">
-                            <form onSubmit={this.onSubmit.bind(this, dispatch)}>
+                            <form onSubmit={this.onSubmit.bind(this, dispatch)} method="POST" encType="multipart/form-data">
                                 <div className="form-group">
                                     <label htmlFor="title">title</label>
                                     <input 
@@ -69,8 +93,18 @@ class AddPost extends Component {
                                         onChange={this.onChangeInput}
                                     />
                                 </div>
+                                <div className="form-group">
+                                    <label htmlFor="image">Image</label>
+                                    <input 
+                                        name="image"
+                                        type="file"
+                                        className="form-control form-control-sm"
+                                        onChange={this.fileSelected}
+                                    />
+                                </div>
                                 <input type="submit" value="Add Post" className="btn btn-block"/>
                             </form>
+                            <p style={{color:'red'}}>{this.state.message}</p>
                         </div>
                     </div>
                     )

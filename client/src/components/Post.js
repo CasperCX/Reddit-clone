@@ -1,24 +1,42 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Post extends Component {
 
-    onVote(type) {
-        // TODO persist data to BACKEND ,INCREASE OR DECREASE VOTE AND SUBMIT QUERY
-        const { id, title, body, sub, votes } = this.props.post;
-
-        //TODO Payload should only include votes to avoid manipulation
-        const post = {
-            id,
-            user_id: 1,
-            title,
-            body,
-            sub,
-            votes: this.getVotes(type, votes)
-        };
-
-        this.props.dispatch({ type: `VOTE_POST`, payload: post });
-    }
+      async onVote(type) {
+        //Clear the error messages
+        this.props.dispatch({ type: 'ERROR', payload: null });
+    
+        // TODO Check if user is logged in else promp to login or register
+        if (localStorage.token !== '') {
+            const { id, title, body, sub, votes } = this.props.post;
+            console.log("got votes from post", votes)
+            const calcvotes = this.getVotes(type, votes);
+            //TODO Payload should only include votes to avoid manipulation
+          const post = {
+              id,
+              //TODO user id should come from the token stored
+              user_id: 1,
+              title,
+              body,
+              sub,
+              votes: calcvotes
+          };
+  
+        //TODO MAKE BACKEND HAVE A PROTECTED ROUTE
+        console.log("calced votes", calcvotes)
+          try {
+              const res = await axios.put('/votepost', { post, calcvotes });
+              this.props.dispatch({ type: `VOTE_POST`, payload: res });
+          } catch (err) {
+              console.log(err);
+          };
+        } else {
+            //Show error message if user is not logged in
+            this.props.dispatch({ type: 'ERROR', payload: 'You need to be logged in to vote' });
+        }
+    };
 
     getVotes(type, votes) {
         switch(type) {

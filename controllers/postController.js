@@ -47,8 +47,44 @@ module.exports = {
             const { user_id, title, body, sub } = req.body;
             const result = await client.query('INSERT INTO posts(user_id, sub, title, body) VALUES($1, $2, $3, $4) RETURNING *', [user_id, sub, title, body])
             res.send(result)
-
+            
         client.end();
+    },
+
+    votePost : async function(req, res){
+        const client = new Client(conString);
+        client.connect(function(err) {
+        if(err) {
+            return res.send("could not connect to database");
+        }
+        });
+        
+        console.log("vote post put request body: ", req.body.calcvotes)
+        const { id, calcvotes } = req.body
+        //LOOK FOR CORRECT POST AND UPDATE THE VOTES
+        
+        const result = await client.query('UPDATE posts SET votes = ($1) WHERE id=($2) RETURNING *', [calcvotes, id]);
+        //RETURN TE POST WITH UPDATED VALUES
+        res.send(result)
+        
+        client.end();
+    },
+
+    uploadImage : async function(req, res){
+        const client = new Client(conString);
+        client.connect(function(err) {
+        if(err) {
+            return res.send("could not connect to database");
+        }
+        });
+
+     
+        // console.log('file recieved:', req.body.file);
+        console.log('file recieved: ', req.file)
+        res.json({
+            message: "uploaded img"
+        })
+        //TODO: UPLOAD IMAGE USING MULTER
     }
 }
 

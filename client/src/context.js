@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 const Context = React.createContext();
 
@@ -35,6 +34,10 @@ const reducer = (state, action) => {
             return {
                 ...state, user: action.payload.username
             }
+        case 'ERROR':
+            return {
+                ...state, error: action.payload
+            }
         default:
             return state;
     }
@@ -43,6 +46,7 @@ const reducer = (state, action) => {
 export class Provider extends Component {
     state = {
         user: null,
+        error: null,
         posts: [],
         dispatch: action => this.setState(state => reducer(state, action))
     };
