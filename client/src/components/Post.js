@@ -55,9 +55,9 @@ class Post extends Component {
 
     render() {
         const { post_id, votes, title, body, file } = this.props.post;
+        const path = require('path')
         return (
             <div>
-                <img src={require(`${file}`)}  style={{  border: '1px solid #ddd', borderRadius: '4px', padding: '5px', width: '150px' }} />
                 <div className="card">
                     <div className="card" style={{ float: 'left'}}><strong>{votes}</strong></div>
                     <button type="button" className="btn btn-default btn-sm" onClick={() => this.onVote('UP')}>
