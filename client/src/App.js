@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import { Provider }  from './context';
+import Modal from './components/Modal';
 import Header from './components/layout/Header';
 import Posts from './components/Posts';
 import PostView from './components/PostView';
@@ -32,6 +33,9 @@ class App extends Component {
           </Switch>
           </div>
         </Router>
+        <Modal>
+          <h1>Still in modal</h1>
+        </Modal>
       </Provider>
     );
   }

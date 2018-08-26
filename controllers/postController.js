@@ -78,14 +78,16 @@ module.exports = {
         }
         });
 
+        console.log('file recieved: ', req.file)
+
         if (!req.file) {
             console.log("no file")
             return res.status(404).send({
-                message: "no file provided"
+                message: "no file provided",
+                filePath: null
             })
         }
 
-        console.log('file recieved: ', req.file)
         res.status(200).send({
             message: "success",
             filePath: req.file.path
