@@ -16,8 +16,7 @@ class Post extends Component {
             //TODO Payload should only include votes to avoid manipulation
           const post = {
               id,
-              //TODO user id should come from the token stored
-              user_id: 1,
+              user_id: localStorage.user_id,
               title,
               body,
               sub,

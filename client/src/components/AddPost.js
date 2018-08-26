@@ -15,7 +15,6 @@ class AddPost extends Component {
     };
 
     onFileUpload = async (file) => {
-       console.log("trying to send", file)
         if (this.state.selectedFile !== null) {
             try {
                 const formData = new FormData();
@@ -35,8 +34,7 @@ class AddPost extends Component {
     onSubmit = async (dispatch, e) => {
         e.preventDefault();
         const { title, body, selectedFile } = this.state;
-        //TODO Get authenticated author id
-
+     
         //Upload file
         const filePath = await this.onFileUpload(selectedFile);
         const post = {
@@ -46,8 +44,6 @@ class AddPost extends Component {
             file: filePath,
             sub: this.props.match.params.sub
         };
-
-        console.log("posting:", post)
 
         try {
             await axios.post('/addpost', post);
@@ -117,7 +113,6 @@ class AddPost extends Component {
             )
         }
     };
-
 
 
 export default AddPost;
