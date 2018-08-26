@@ -27,12 +27,17 @@ const reducer = (state, action) => {
         case 'LOGIN_USER':
         console.log('loggin in user', action.payload);
             return {
-                ...state, user: action.payload.username
+                ...state, user_id: action.payload.user_id, username: action.payload.username
+            }
+        case 'LOGOUT_USER':
+        console.log('loggin out user',);
+            return {
+                ...state, user_id: null, username: null
             }
         case 'REGISTER_USER':
         console.log('registering user', action.payload);
             return {
-                ...state, user: action.payload.username
+                ...state, username: action.payload
             }
         case 'ERROR':
             return {
@@ -45,7 +50,8 @@ const reducer = (state, action) => {
 
 export class Provider extends Component {
     state = {
-        user: null,
+        user_id: null,
+        username: null,
         error: null,
         posts: [],
         dispatch: action => this.setState(state => reducer(state, action))

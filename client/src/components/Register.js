@@ -18,7 +18,7 @@ class Register extends Component {
             console.log("client response", res)
             //TODO check if res is a new user or a error
             if(res.status === 200) {
-                dispatch({type: "REGISTER_USER", payload: this.state });
+                dispatch({type: "REGISTER_USER", payload: this.state.username });
                  //Clear state
                 this.setState({ username: '', password: '' }); 
                 //redirect to login after succesfully registered

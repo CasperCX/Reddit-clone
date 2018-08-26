@@ -27,14 +27,18 @@ module.exports = {
             if (rows.length > 0) {
                 const passwordIsValid = bcrypt.compareSync(user.password, rows[0].password);
                     if (!passwordIsValid) { 
-                        return res.status(401).send({ auth: false, token: null, message: "invalid password"});
+                        return res.status(401).send({ auth: false, token: null, message: "Authentication failed"});
                     } else {
                         jwt.sign({ user }, process.env.SECRET_OR_KEY, (err, token) => {
-                            res.status(200).send({ auth: true, token: token,  message: "successfully logged in"});
+                            if (err) {
+                                return res.status(404).send({ auth: false, token: null, message: "Could not sign user"});
+                            } else {
+                                res.status(200).send({ auth: true, user_id: rows[0].user_id, token: token,  message: "successfully logged in"});
+                            }
                         });                    
                     };
             } else {
-                return res.status(404).send({ auth: false, token: null, message: "username does not exist"});
+                return res.status(404).send({ auth: false, token: null, message: "Authentication failed"});
             };
 
         } catch(err) {

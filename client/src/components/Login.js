@@ -17,8 +17,9 @@ class Login extends Component {
             try {
                 const res = await axios.post('/login', this.state);
                 localStorage.setItem('token', res.data.token);
-                
-                dispatch({type: "LOGIN_USER", payload: this.state });
+                localStorage.setItem('user_id', res.data.user_id);
+          
+                dispatch({type: "LOGIN_USER", payload: {user_id: res.data.user_id, username: this.state.username}  });
                 this.setState({ username: '', password: '' });  //Clear state
                 this.props.history.push('/');
             

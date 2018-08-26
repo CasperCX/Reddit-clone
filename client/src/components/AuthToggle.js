@@ -5,7 +5,7 @@ export default class Toggle extends Component {
     on: false
   };
 
-  toggle = () => {
+  onAuth = () => {
     this.setState({ on: !this.state.on });
   };
   
@@ -15,7 +15,7 @@ export default class Toggle extends Component {
       <React.Fragment>
         {children({
           on: this.state.on,
-          toggle: this.toggle
+          onAuth: this.toggle
         })}
       </React.Fragment>
     )

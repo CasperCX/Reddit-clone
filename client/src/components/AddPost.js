@@ -40,12 +40,14 @@ class AddPost extends Component {
         //Upload file
         const filePath = await this.onFileUpload(selectedFile);
         const post = {
-            user_id: 1,
+            user_id: localStorage.user_id,
             title: title,
             body: body,
             file: filePath,
             sub: this.props.match.params.sub
         };
+
+        console.log("posting:", post)
 
         try {
             await axios.post('/addpost', post);

@@ -13,6 +13,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Account from './components/Account';
 import NotFound from './components/NotFound';
+import AuthToggle from './components/AuthToggle';
 
 class App extends Component {
   render() {
@@ -21,6 +22,13 @@ class App extends Component {
         <Router>
           <div className="App">
           <Header />
+          {/* <Header render={({authModal, onAuth, nav}) => (
+              <React.Fragment>
+                { nav() }
+                { authModal && <Modal><button style={{ position: 'absolute', top: '50%' }} onClick={onAuth}>AUTH</button>Im a toggable modal?</Modal> }
+              </React.Fragment>
+            )}
+          /> */}
           <Switch>
             <Route exact path="/" component={Posts} />
             <Route exact path="/r/:sub" component={Posts} />
@@ -33,9 +41,6 @@ class App extends Component {
           </Switch>
           </div>
         </Router>
-        <Modal>
-          <h1>Still in modal</h1>
-        </Modal>
       </Provider>
     );
   }

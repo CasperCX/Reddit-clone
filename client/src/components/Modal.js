@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+
 import Portal from './Portal';
 
 export default class Modal extends Component {
   render() {
     return (
       <Portal>
-        <ModalWrapper>
+        <div style={{ background: 'teal', height: '100%', width: '100%', position: 'absolute', left: '0', right: '0' }}>
             {this.props.children}
-        </ModalWrapper>
+        </div>
       </Portal>
     )
   }
 };
 
-const ModalWrapper = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%:
-    background: green;
-`;
+
+
