@@ -44,8 +44,8 @@ module.exports = {
                 }
             });
 
-            const { user_id, title, body, sub, file } = req.body;
-            const result = await client.query('INSERT INTO posts(user_id, sub, title, body, file) VALUES($1, $2, $3, $4, $5) RETURNING *', [user_id, sub, title, body, file])
+            const { user_id, username, title, body, sub, file } = req.body;
+            const result = await client.query('INSERT INTO posts(user_id, username, sub, title, body, file) VALUES($1, $2, $3, $4, $5, $6) RETURNING *', [user_id, username, sub, title, body, file])
             res.send(result)
             
         client.end();

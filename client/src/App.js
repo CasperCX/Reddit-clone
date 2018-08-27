@@ -11,7 +11,7 @@ import PostView from './components/PostView';
 import AddPost from './components/AddPost';
 import Register from './components/Register';
 import Login from './components/Login';
-import Account from './components/Account';
+import Profile from './components/Profile';
 import NotFound from './components/NotFound';
 import { Consumer } from './context';
 
@@ -66,7 +66,7 @@ export default class App extends Component {
             <PrivateRoute exact path="/r/:sub/addpost" component={AddPost} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/account" component={Account} />
+            <Route exact path="/u/:username" component={Profile} />
             <Route component={NotFound} />
           </Switch>
           </div>

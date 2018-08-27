@@ -11,7 +11,6 @@ class Post extends Component {
         // TODO Check if user is logged in else promp to login or register
         if (localStorage.token !== '') {
             const { id, title, body, sub, votes } = this.props.post;
-            console.log("got votes from post", votes)
             const calcvotes = this.getVotes(type, votes);
             //TODO Payload should only include votes to avoid manipulation
           const post = {
@@ -53,7 +52,7 @@ class Post extends Component {
     };
 
     render() {
-        const { post_id, votes, title, body, file } = this.props.post;
+        const { post_id, username, votes, title, body, file } = this.props.post;
         const path = require('path')
         return (
             <div>
@@ -66,6 +65,7 @@ class Post extends Component {
                         <span className="glyphicon glyphicon-arrow-down"></span> Down
                     </button>
                     <div style={{ float: 'right'}}>
+                        <Link to={`/u/${username}`}>/u/{username}</Link>
                         <Link to={{ pathname: `/post/${post_id}`, state: { post_id, title, body, votes } }}>{title}</Link>
                     </div>
                 </div>

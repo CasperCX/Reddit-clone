@@ -31,7 +31,7 @@ class AddPost extends Component {
         }
     };
 
-    onSubmit = async (dispatch, e) => {
+    onSubmit = async (dispatch, username, e) => {
         e.preventDefault();
         const { title, body, selectedFile } = this.state;
      
@@ -39,6 +39,7 @@ class AddPost extends Component {
         const filePath = await this.onFileUpload(selectedFile);
         const post = {
             user_id: localStorage.user_id,
+            username: username,
             title: title,
             body: body,
             file: filePath,
@@ -65,12 +66,13 @@ class AddPost extends Component {
         return (
             <Consumer>
                 {value => {
-                    const { dispatch } = value;
+                    const { dispatch, username } = value;
+                    console.log("current username:", username)
                     return (
                         <div className="card mb-3">
                         <div className="card-header">Add Post</div>
                         <div className="card-body">
-                            <form onSubmit={this.onSubmit.bind(this, dispatch)} encType="multipart/form-data">
+                            <form onSubmit={this.onSubmit.bind(this, dispatch, username)} encType="multipart/form-data">
                                 <div className="form-group">
                                     <label htmlFor="title">title</label>
                                     <input 

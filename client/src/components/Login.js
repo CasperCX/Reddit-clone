@@ -21,7 +21,7 @@ class Login extends Component {
           
                 dispatch({type: "LOGIN_USER", payload: {user_id: res.data.user_id, username: this.state.username}  });
                 this.setState({ username: '', password: '' });  //Clear state
-                this.props.history.push('/');
+                this.props.history.goBack()
             
             } catch(err) {
                 this.setState({message: err.response.data.message});
