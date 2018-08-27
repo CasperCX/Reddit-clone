@@ -53,7 +53,6 @@ class Post extends Component {
 
     render() {
         const { post_id, username, votes, title, body, file } = this.props.post;
-        const path = require('path')
         return (
             <div>
                 <div className="card">

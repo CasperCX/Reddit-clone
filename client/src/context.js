@@ -5,7 +5,7 @@ const Context = React.createContext();
 const reducer = (state, action) => {
     switch(action.type) {
         case 'GET_POSTS':
-        console.log("getting posts for sub", action.payload);
+        console.log("getting posts", action.payload);
             return {
                 ...state, posts: [...action.payload]
             }

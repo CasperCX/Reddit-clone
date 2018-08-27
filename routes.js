@@ -41,6 +41,7 @@ router.route('/securepage').get(verrifyToken ,authCtrl.securePage);
 
 //Post routes
 router.route('/posts/:sub').get(postCtrl.getPosts);
+router.route('/posts/u/:username').get(postCtrl.getPostsForUser);
 router.route('/post/:id').get(postCtrl.getPost);
 router.route('/addpost').post(postCtrl.postPost);
 router.route('/uploadimage').post(uploadImage.single('image'), postCtrl.uploadImage);

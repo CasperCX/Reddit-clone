@@ -21,6 +21,22 @@ module.exports = {
         client.end();
 
     },
+    getPostsForUser : async function(req, res){
+        const client = new Client(conString);
+            client.connect(function(err) {
+            if(err) {
+                return res.send("could not connect to database");
+                }
+            });
+        
+        const { username } = req.params;
+        console.log('passed username', username)
+        const { rows } = await client.query('SELECT * FROM posts WHERE username = $1', [username]);
+        res.send(rows)
+
+        client.end();
+
+    },
     getPost : async function(req, res){
         const client = new Client(conString);
             client.connect(function(err) {

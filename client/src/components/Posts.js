@@ -11,7 +11,6 @@ export class Posts extends Component {
         const sub = this.props.match.params.sub;
         try {
             const posts = await axios.get(`/posts/${sub}`);
-            
             //dispatch action to get all posts for current sub param
             dispatch({ type: 'GET_POSTS', payload: posts.data });
         } catch(err) {
