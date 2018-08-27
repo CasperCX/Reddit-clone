@@ -14,21 +14,27 @@ import Login from './components/Login';
 import Account from './components/Account';
 import NotFound from './components/NotFound';
 import AuthToggle from './components/AuthToggle';
+import { Consumer } from './context';
 
-class App extends Component {
+
+//Check if logged in and set context state
+//TODO TRY TO GET CONTEXT API IN THIS TOP LEVEL COMPONENT
+export default class App extends Component {
+  componentDidMount() {
+    // const { dispatch } = this.props.context;
+    const token = localStorage.getItem('token');
+    
+    if(token) {
+      // dispatch({ type: 'AUTHENTICATED'})
+    };
+  }
+
   render() {
     return (
       <Provider>
         <Router>
           <div className="App">
           <Header />
-          {/* <Header render={({authModal, onAuth, nav}) => (
-              <React.Fragment>
-                { nav() }
-                { authModal && <Modal><button style={{ position: 'absolute', top: '50%' }} onClick={onAuth}>AUTH</button>Im a toggable modal?</Modal> }
-              </React.Fragment>
-            )}
-          /> */}
           <Switch>
             <Route exact path="/" component={Posts} />
             <Route exact path="/r/:sub" component={Posts} />
@@ -46,4 +52,9 @@ class App extends Component {
   }
 }
 
-export default App;
+// export default props => (
+//   <Consumer>
+//     {context => <App {...props} context={context} />}
+//   </Consumer>
+//   );
+
