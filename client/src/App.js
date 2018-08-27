@@ -4,6 +4,7 @@ import decode from 'jwt-decode';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+
 import { Provider }  from './context';
 import Header from './components/layout/Header';
 import Posts from './components/Posts';

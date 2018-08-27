@@ -54,21 +54,24 @@ class Post extends Component {
     render() {
         const { post_id, username, votes, title, body, file } = this.props.post;
         return (
-            <div>
-                <div className="card">
-                    <div className="card" style={{ float: 'left'}}><strong>{votes}</strong></div>
-                    <button type="button" className="btn btn-default btn-sm" onClick={() => this.onVote('UP')}>
-                        <span className="glyphicon glyphicon-arrow-up"></span> Up
-                    </button>
-                    <button type="button" className="btn btn-default btn-sm" onClick={() => this.onVote('DOWN')}>
-                        <span className="glyphicon glyphicon-arrow-down"></span> Down
-                    </button>
-                    <div style={{ float: 'right'}}>
-                        <Link to={`/u/${username}`}>/u/{username}</Link>
+                <div className="post-wrapper">
+                    <div className="vote-wrapper">
+                        <button onClick={() => this.onVote('UP')}>
+                            <i className="fa fa-arrow-up"></i>
+                        </button>
+                        <strong style={{float: 'left' }}>{votes}</strong>
+                        <button onClick={() => this.onVote('DOWN')}>
+                            <i className="fa fa-arrow-down"></i>
+                        </button>
+                    </div>
+                    <div className="post-title">
                         <Link to={{ pathname: `/post/${post_id}`, state: { post_id, title, body, votes } }}>{title}</Link>
                     </div>
+                    <div className="post-metadata">
+                        posted by <Link to={`/u/${username}`}>/u/{username}</Link>
+                       
+                    </div>
                 </div>
-            </div>
         )
     }
 };

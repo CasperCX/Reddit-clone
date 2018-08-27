@@ -17,10 +17,11 @@ class Profile extends Component {
 
 
   render() {
-    const { posts } = this.props.context;
+    const { posts, error } = this.props.context;
     return (
       <div>
         User account page for { this.props.match.params.username }
+        <p style={{color:'red'}}>{error}</p>
         {posts.map(post => 
                     <ProfilePost key={post.id} post={post} />
                 )}

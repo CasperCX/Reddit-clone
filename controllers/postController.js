@@ -30,7 +30,6 @@ module.exports = {
             });
         
         const { username } = req.params;
-        console.log('passed username', username)
         const { rows } = await client.query('SELECT * FROM posts WHERE username = $1', [username]);
         res.send(rows)
 
